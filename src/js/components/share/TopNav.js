@@ -1,10 +1,18 @@
-
 import React, {Component} from 'react'
-import { NavLink, Link, Route } from 'react-router-dom'
-
-const rootDir = '/';
+import { NavLink, Link, Route, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { Logout } from '../../actions/userActions'
+const rootDir = '/'
 
 class TopNav extends Component {
+
+    constructor(props) {
+      super(props)
+
+      // this.state = {};
+      // console.log(this.props)
+      // console.log(this)
+    }
 
     // Click
     topNavClick(e) {
@@ -17,6 +25,25 @@ class TopNav extends Component {
     }
 
     render() {
+
+      let userLinks = [
+        <NavLink activeClassName="active"
+            to={rootDir + "logout"}
+            onClick={this.props.onLogout()}
+            data-target="#">
+            <span className="glyphicon glyphicon-log-out"></span> Logout
+        </NavLink>
+      ]
+
+      let guestLinks = [
+          <NavLink activeClassName="active"
+              to={rootDir + "login"}
+              onClick={this.topNavClick}
+              data-target="#">
+              <span className="glyphicon glyphicon-log-in"></span> Login
+          </NavLink>
+      ]
+
       let topNav = [
           <nav className="nav navbar navbar-inverse navbar-fixed-top" role="navigation">
               <div className="container-fluid">
@@ -73,12 +100,7 @@ class TopNav extends Component {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink activeClassName="active"
-                                to={rootDir + "login"}
-                                onClick={this.topNavClick}
-                                data-target="#">
-                                <span className="glyphicon glyphicon-log-in"></span> Login
-                            </NavLink>
+                          { this.props.login ? userLinks : guestLinks }
                         </li>
                     </ul>
                 </div>
@@ -93,4 +115,30 @@ class TopNav extends Component {
       );
     }
 }
-export default TopNav
+// export default TopNav
+
+const TopNavStateToProps = (store) => ({
+  login: store.getIn(['user','login'])
+})
+
+/*
+function TopNavStateToProps(store) {
+  let login = store.getIn(['user','login'])
+  console.log(login)
+  return {
+    login: login
+  }
+};
+*/
+
+const TopNavDispatchToProps = (dispatch) => ({
+
+  onLogout: () => (e) => {
+    // e.preventDefault()
+    dispatch(Logout())
+  }
+})
+
+export default withRouter(
+                  connect(TopNavStateToProps, TopNavDispatchToProps)(TopNav)
+               )

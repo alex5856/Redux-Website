@@ -1,5 +1,10 @@
 import Immutable from 'immutable'
 
+export const WebConfig = Immutable.fromJS({
+    'title': 'WebSite',
+    'descr': null
+})
+
 export const TodoState = Immutable.fromJS({
   'todos': [],
   'todo': {
@@ -14,7 +19,7 @@ export const UserState = Immutable.fromJS({
     email: null,
     name: null
   },
-  'login': false
+  'login': null
 })
 
 // export default TodoState

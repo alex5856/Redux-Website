@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
+
 
 // 引入 Components
 import About from '../../components/About'
@@ -11,9 +12,20 @@ import Login from '../../components/Login'
 import Topics from '../../components/Topics'
 import validatorObj from './validatorObj'
 
+import { connect } from 'react-redux'
+
 const rootDir = '/';
 
 class Main extends Component {
+
+  constructor(props) {
+      super(props);
+
+      // console.log(this.props)
+      // this.props.login
+      // console.log(this.state)
+  }
+
   render() {
     return (
         <Switch>
@@ -23,10 +35,25 @@ class Main extends Component {
           <Route path={rootDir + "contact"} component={Contact} />
           <Route path={rootDir + "todo"} component={Todo} />
           <Route path={rootDir + "signup"} component={SignUp} />
+          {/**
           <Route path={rootDir + "login"} component={Login} />
+           **/}
+          <Route path={rootDir} render={props => (
+              this.props.login ? (
+                <Redirect to={'/'}/>
+              ) : (
+                <Login/>
+              )
+            )}/>
         </Switch>
     );
   }
 }
 
-export default Main;
+// export default Main
+
+const LoginStateToProps = (store) => ({
+  login: store.getIn(['user','login'])
+})
+
+export default withRouter(connect(LoginStateToProps)(Main))
