@@ -1,18 +1,14 @@
 import { handleActions } from 'redux-actions'
-import { UserState } from '../constants/models'
+import { UserState } from '../store/models'
 
 import {
   CHECK_LOGIN,
   LOGOUT
-} from '../constants/actionTypes'
+} from '../actions/actionTypes'
 
 const userReducers = handleActions({
 
   CHECK_LOGIN: (state, { payload }) => {
-    // console.log('payload')
-    // console.log(payload)
-    // console.log('state')
-    // console.log(state)
     return state.set('login', true)
   },
   LOGOUT: (state) => (

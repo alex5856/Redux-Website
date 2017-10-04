@@ -7,7 +7,8 @@ var gulp             = require('gulp'),
     uglify           = require('gulp-uglify'), // 混淆壓縮
     minify           = require('gulp-minify'), // js 壓縮
     jsonminify       = require('gulp-jsonminify'), // json 壓縮
-    minifycss        = require('gulp-minify-css'), // css 壓縮
+    // minifycss        = require('gulp-minify-css'), // css 壓縮
+    cleanCSS         = require('gulp-clean-css'),
     htmlmin          = require('gulp-htmlmin'), // html 壓縮
     cache            = require('gulp-cache'),  // 快取
     rename           = require('gulp-rename'), // 重新命名
@@ -16,7 +17,8 @@ var gulp             = require('gulp'),
     browserify       = require('browserify'),
     source           = require('vinyl-source-stream'),
     buffer           = require('vinyl-buffer'),
-    babelify         = require('babelify');
+    babelify         = require('babelify'),
+    sourcemaps       = require('gulp-sourcemaps');
 
 gutil.log('Environment', gutil.colors.cyan(gulp.env.production ? 'Production' : 'Development'));
 
@@ -28,9 +30,6 @@ var DIST_DIR = 'build/';
 
 // src 資料夾
 var DIR;
-
-// 輸出資料夾
-var DEST_DIR;
 
 // web server
 gulp.task('server', function(){
@@ -49,7 +48,7 @@ var paths = {
 //HTML
 gulp.task('html', function () {
   DIR = paths.html.dir;
-  DEST_DIR = paths.html.distDir;
+  DIST_DIR = paths.html.distDir;
 
   /**
   removeComments // 清除註解
@@ -71,18 +70,17 @@ gulp.task('html', function () {
 
   return gulp.src(DIR +'*.html')
     .pipe(htmlmin(html_options))
-    .pipe(gulp.dest(DEST_DIR))
+    .pipe(gulp.dest(DIST_DIR))
     .pipe(connect.reload());
 });
-
 
 // JS
 gulp.task('js', function() {
     DIR = paths.js.dir;
-    DEST_DIR = paths.js.distDir;
+    DIST_DIR = paths.js.distDir;
 
     // 預先刪除輸出資料夾js目錄內檔案
-    var delFile = del([DEST_DIR + '/*.js']);
+    var delFile = del([DIST_DIR + '/*.js']);
 
     browserify({
       entries: [DIR + 'index.js'],
@@ -93,7 +91,7 @@ gulp.task('js', function() {
     .pipe(buffer())
     //.pipe(uglify())
     .pipe(rename({ suffix: '.min' }))
-    .pipe(gulp.dest(DEST_DIR))
+    .pipe(gulp.dest(DIST_DIR))
     .pipe(connect.reload())
     .on('error', handleError);
 
@@ -102,32 +100,53 @@ gulp.task('js', function() {
 // CSS
 gulp.task('css', function() {
     DIR = paths.css.dir;
-    DEST_DIR = paths.css.distDir;
+    DIST_DIR = paths.css.distDir;
 
-    var delFile = del([DEST_DIR + '/*']);
+    var delFile = del([DIST_DIR + '/*']);
 
     var contact;
-    contact = gulp.src([DIR + '*.css'])
+    /*contact = gulp.src([DIR + '*.css'])
          .pipe(concat('all.css'))
-         .pipe(minifycss())
+         //.pipe(minifycss())
+         .pipe(cleanCSS())
          .pipe(rename({ suffix: '.min' }))
-         .pipe(gulp.dest(DEST_DIR))
+         .pipe(gulp.dest(DIST_DIR))
+         .pipe(connect.reload());*/
+
+    contact = gulp.src([DIR + '*.css'])
+         .pipe(sourcemaps.init())
+         .pipe(concat('all.css'))
+         // .pipe(minifycss())
+         .pipe(cleanCSS())
+         .pipe(rename({ suffix: '.min' }))
+          // 寫入sourcemaps到輸出資料夾，sourceRoot：輸出資料夾 css 位置
+         .pipe(sourcemaps.write('./', {
+                   includeContent: false,
+                   sourceRoot: '../css'
+                 }))
+         .pipe(gulp.dest(DIST_DIR))
          .pipe(connect.reload());
+
+    var all;
+    all = gulp.src([DIR + '*.css'])
+              // .pipe(cleanCSS())
+              .pipe(gulp.dest(DIST_DIR))
+              .pipe(connect.reload());
 });
 
 // Images
 gulp.task('images', function() {
 
     DIR = paths.images.dir;
-    DEST_DIR = paths.images.distDir;
+    DIST_DIR = paths.images.distDir;
 
-    var delFile = del([DEST_DIR + '/*']);
+    var delFile = del([DIST_DIR + '/*']);
 
     var images = gulp.src([DIR + '**/*'])
       .pipe(imagemin({ optimizationLevel: 3,
                        progressive: true,
                        interlaced: true }))
-      .pipe(gulp.dest(DEST_DIR))
+      .pipe(gulp.dest(DIST_DIR))
       .pipe(connect.reload());
 });
 

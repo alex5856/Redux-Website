@@ -13,7 +13,7 @@ class App extends Component {
       <div>
         <TopNav />
         <Main />
-        <Footer />
+        {/**<Footer />**/}
       </div>
     );
   }

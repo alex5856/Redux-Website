@@ -1,6 +1,5 @@
 import { handleActions } from 'redux-actions'
-// import TodoState from '../constants/models'
-import { TodoState } from '../constants/models'
+import { TodoState } from '../store/models'
 
 import {
   CREATE_TODO,
@@ -8,7 +7,7 @@ import {
   SAVE_TODO,
   DELETE_TODO,
   CHANGE_TEXT
-} from '../constants/actionTypes'
+} from '../actions/actionTypes'
 
 const todoReducers = handleActions({
 

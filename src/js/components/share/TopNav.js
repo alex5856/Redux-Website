@@ -8,10 +8,6 @@ class TopNav extends Component {
 
     constructor(props) {
       super(props)
-
-      // this.state = {};
-      // console.log(this.props)
-      // console.log(this)
     }
 
     // Click

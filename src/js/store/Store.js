@@ -7,7 +7,7 @@ const initialState = Immutable.Map()
 const store = createStore(
   rootReducer,
   initialState,
-  // applyMiddleware(createLogger({ stateTransformer: state => state.toJS() }))
-);
+  applyMiddleware(createLogger({ stateTransformer: state => state.toJS() }))
+)
 
 export default store
