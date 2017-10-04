@@ -4,6 +4,8 @@ import Validation from 'react-validation'
 import validator from 'validator'
 import swal from 'sweetalert2'
 
+import axios from 'axios'
+
 import { connect } from 'react-redux'
 import { checkLogin } from '../actions/userActions'
 
@@ -45,8 +47,7 @@ class Login extends Component {
                                   className="form-horizontal">
                                   <div className="form-group">
                                       <Validation.components.Input
-                                          value='a@a.com'
-                                          id='email'
+                                          value=''
                                           name='email'
                                           validations={['required', 'email']}
                                           type="text"
@@ -56,9 +57,8 @@ class Login extends Component {
                                   <div className="form-group">
                                       <Validation.components.Input
                                           type='password'
-                                          id='password'
                                           name='password'
-                                          value='0000'
+                                          value=''
                                           validations={['required']}
                                           placeholder="Enter password"
                                           className="form-control" />
@@ -96,27 +96,49 @@ const LoginDispatchToProps = (dispatch) => ({
     e.preventDefault()
 
     // 讀取 test.json 資料
-    fetch("../test.json").then(function(res) {
-      if (res.ok) {
-        res.json().then(function(data) {
-          if(data.chk){
+    axios.get('../test.json')
+      .then(function (res) {
+        // console.log(res);
+        let data = res.data;
+        if(data.chk){
             swal(
               'Good job!',
               'complete',
               'success')
+
+            dispatch(checkLogin())
           }
           else{
-            console.log(data.descr);
+            // console.log(data.descr);
+            swal('Oops!',
+                 'Something went wrong!',
+                 'error')
           }
-        })
-      } else {
-        console.log("Looks like the response wasn't perfect, got status", res.status)
-      }
-    }, function(e) {
-      console.log("Fetch failed!", e)
-    });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
-    dispatch(checkLogin())
+    // fetch("../test.json").then(function(res) {
+    //   if (res.ok) {
+    //     res.json().then(function(data) {
+    //       if(data.chk){
+    //         swal(
+    //           'Good job!',
+    //           'complete',
+    //           'success')
+    //       }
+    //       else{
+    //         console.log(data.descr);
+    //       }
+    //     })
+    //   } else {
+    //     console.log("Looks like the response wasn't perfect, got status", res.status)
+    //   }
+    // }, function(e) {
+    //   console.log("Fetch failed!", e)
+    // });
+
   }
 })
 
