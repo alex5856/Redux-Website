@@ -46,18 +46,10 @@ var paths = {
 };
 
 //HTML
-gulp.task('html', function () {
+gulp.task('html', function() {
   DIR = paths.html.dir;
   DIST_DIR = paths.html.distDir;
 
-  /**
-  removeComments // 清除註解
-  removeCommentsFromCDATA:true,
-  removeEmptyAttributes // 刪除空白的屬性 <input id="" /> ==> <input />
-  removeScriptTypeAttributes // 刪除 <script> 內屬性 type="text/javascript"
-  removeStyleLinkTypeAttributes// 刪除 <style> 與 <link> 內的屬性 type="text/css"
-  collapseWhitespace // 壓縮 html
-  **/
   var html_options = {};
   html_options = {
       removeComments: true,
@@ -75,22 +67,38 @@ gulp.task('html', function () {
 });
 
 // JS
-gulp.task('js', function() {
+gulp.task('js', function () {
     DIR = paths.js.dir;
     DIST_DIR = paths.js.distDir;
 
     // 預先刪除輸出資料夾js目錄內檔案
     var delFile = del([DIST_DIR + '/*.js']);
 
-    browserify({
+    var b = browserify({
       entries: [DIR + 'index.js'],
       transform: [babelify],
     })
-    .bundle()
+    b.bundle()
     .pipe(source('index.js'))
     .pipe(buffer())
-    //.pipe(uglify())
+    // .pipe(sourcemaps.init())
+    // .pipe(uglify())
     .pipe(rename({ suffix: '.min' }))
+    // .pipe(sourcemaps.write('./', {
+    //                includeContent: false,
+    //                sourceRoot: '../js'
+    //              }))
+    .pipe(gulp.dest(DIST_DIR))
+    .pipe(connect.reload())
+    .on('error', handleError);
+
+    var b2 = browserify({
+      entries: [DIR + 'index.js'],
+      transform: [babelify],
+    })
+    b2.bundle()
+    .pipe(source('index.js'))
+    .pipe(buffer())
     .pipe(gulp.dest(DIST_DIR))
     .pipe(connect.reload())
     .on('error', handleError);
@@ -98,20 +106,13 @@ gulp.task('js', function() {
 });
 
 // CSS
-gulp.task('css', function() {
+gulp.task('css', function () {
     DIR = paths.css.dir;
     DIST_DIR = paths.css.distDir;
 
     var delFile = del([DIST_DIR + '/*']);
 
     var contact;
-    /*contact = gulp.src([DIR + '*.css'])
-         .pipe(concat('all.css'))
-         //.pipe(minifycss())
-         .pipe(cleanCSS())
-         .pipe(rename({ suffix: '.min' }))
-         .pipe(gulp.dest(DIST_DIR))
-         .pipe(connect.reload());*/
 
     contact = gulp.src([DIR + '*.css'])
          .pipe(sourcemaps.init())
@@ -129,13 +130,12 @@ gulp.task('css', function() {
 
     var all;
     all = gulp.src([DIR + '*.css'])
-              // .pipe(cleanCSS())
               .pipe(gulp.dest(DIST_DIR))
               .pipe(connect.reload());
 });
 
 // Images
-gulp.task('images', function() {
+gulp.task('images', function () {
 
     DIR = paths.images.dir;
     DIST_DIR = paths.images.distDir;
@@ -156,12 +156,12 @@ gulp.task('apply-prod-environment', function() {
     //process.env.NODE_ENV = 'development';
 });
 
-var Tasks =[];
+var Tasks = [];
 Tasks = ['server','css','js','images','html',
          'apply-prod-environment','watch'];
 
 // Default task
-gulp.task('default', Tasks, function(){
+gulp.task('default', Tasks, function (){
 
 });
 
