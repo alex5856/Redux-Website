@@ -5,6 +5,9 @@ import {
   createTodo,
 } from '../actions/todoActions'
 
+import swal from 'sweetalert2'
+import validator from 'validator'
+
 const TodoHeader = ({
   onChangeText,
   onCreateTodo,
@@ -14,6 +17,7 @@ const TodoHeader = ({
       <form role="form" className="form-inline">
           <div className="form-group">
               <input type="text"
+                     className="todo_text"
                      value={todo.get('text')}
                      onChange={onChangeText} />
           </div>
@@ -24,23 +28,32 @@ const TodoHeader = ({
     </div>
 );
 
-const mapStateToProps = (store) => ({
+const TodoHeaderStateToProps = (store) => ({
   // 經由 store 取得 todo store
   todo: store.getIn(['todo', 'todo'])
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onChangeText: (e) => (
+const TodoHeaderDispatchToProps = (dispatch) => ({
+  onChangeText: (e) => {
     dispatch(changeText({ text: e.target.value }))
-  ),
+  },
   onCreateTodo: (e) => {
-    e.preventDefault();
-    dispatch(createTodo());
-    dispatch(changeText({ text: '' }));
+    e.preventDefault()
+    let x = document.getElementsByClassName("todo_text")[0];
+    if(validator.isEmpty(x.value)) {
+      swal('Oops!',
+           'Please enter text',
+           'error')
+    } else {
+      dispatch(createTodo());
+      dispatch(changeText({ text: '' }));
+    }
   }
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(TodoHeader);
+const TodoHeaderContainers = connect(
+  TodoHeaderStateToProps,
+  TodoHeaderDispatchToProps
+)(TodoHeader)
+
+export default TodoHeaderContainers

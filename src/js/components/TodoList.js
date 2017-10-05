@@ -34,6 +34,10 @@ const TodoList = ({
   onSaveTodo,
 }) => {
 
+let divStyle = { width: '65%',
+                 float: 'left'
+               }
+
   return (
 
     <div className="todo_list">
@@ -42,24 +46,36 @@ const TodoList = ({
     <p>index : {index}</p>
     <p>edit : {edit}</p>
     **/}
-    <ul>
+    <ul className="list-unstyled">
     {
       todos.map((todo, i) => (
         <li key={i}>
           {
             edit && index === i ?
               <div>
-              <input id={"text" + i}
+                <input id={"text" + i}
+                     style={divStyle}
                      name="text" type="text"
                      defaultValue={todo.get('text')}/>
-                <button onClick={onSaveTodo(i)}
-                  className="btn btn-default">save</button>
+                <div>
+                  <button onClick={onSaveTodo(i)}
+                    className="btn btn-primary">
+                    <span className="glyphicon glyphicon-save"></span>
+                  </button>
+                </div>
               </div> :
-              <div>{todo.get('text')}
-              <button onClick={onEditTodo(i, todo.get('edit') ,todo.get('text'))}
-                  className="btn btn-default">edit</button>
-              <button onClick={onDeleteTodo(i)}
-                  className="btn btn-default">X</button>
+              <div>
+                  <p style={divStyle}>{todo.get('text')}</p>
+                  <div>
+                      <button onClick={onEditTodo(i, todo.get('edit') ,todo.get('text'))}
+                          className="btn btn-success">
+                          <span className="glyphicon glyphicon-edit"></span>
+                      </button>
+                      <button onClick={onDeleteTodo(i)}
+                          className="btn btn-danger">
+                          <span className="glyphicon glyphicon-remove"></span>
+                      </button>
+                  </div>
               </div>
           }
         </li>
