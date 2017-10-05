@@ -20,10 +20,6 @@ class Main extends Component {
 
   constructor(props) {
       super(props);
-
-      // console.log(this.props)
-      // this.props.login
-      // console.log(this.state)
   }
 
   render() {
@@ -35,9 +31,6 @@ class Main extends Component {
           <Route path={rootDir + "contact"} component={Contact} />
           <Route path={rootDir + "todo"} component={Todo} />
           <Route path={rootDir + "signup"} component={SignUp} />
-          {/**
-          <Route path={rootDir + "login"} component={Login} />
-           **/}
           <Route path={rootDir} render={props => (
               this.props.login ? (
                 <Redirect to={'/'}/>
@@ -49,8 +42,6 @@ class Main extends Component {
     );
   }
 }
-
-// export default Main
 
 const LoginStateToProps = (store) => ({
   login: store.getIn(['user','login'])

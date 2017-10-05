@@ -3,9 +3,7 @@ import Helmet from 'react-helmet'
 import Validation from 'react-validation'
 import validator from 'validator'
 import swal from 'sweetalert2'
-
 import axios from 'axios'
-
 import { connect } from 'react-redux'
 import { checkLogin } from '../actions/userActions'
 
@@ -13,9 +11,6 @@ class Login extends Component {
 
     constructor(props) {
       super(props);
-
-      // console.log(this.props)
-      // console.log(this.state)
     }
 
     render() {
@@ -85,8 +80,6 @@ class Login extends Component {
     }
 }
 
-// export default Login
-
 const LoginStateToProps = (store) => ({
   login: store.getIn(['user','login'])
 })
@@ -118,28 +111,12 @@ const LoginDispatchToProps = (dispatch) => ({
       .catch(function (error) {
         console.log(error);
       });
-
-    // fetch("../test.json").then(function(res) {
-    //   if (res.ok) {
-    //     res.json().then(function(data) {
-    //       if(data.chk){
-    //         swal(
-    //           'Good job!',
-    //           'complete',
-    //           'success')
-    //       }
-    //       else{
-    //         console.log(data.descr);
-    //       }
-    //     })
-    //   } else {
-    //     console.log("Looks like the response wasn't perfect, got status", res.status)
-    //   }
-    // }, function(e) {
-    //   console.log("Fetch failed!", e)
-    // });
-
   }
 })
 
-export default connect(LoginStateToProps, LoginDispatchToProps)(Login)
+const LoginContainers = connect(
+  LoginStateToProps,
+  LoginDispatchToProps
+)(Login)
+
+export default LoginContainers

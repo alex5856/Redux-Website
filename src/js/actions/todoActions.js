@@ -5,7 +5,7 @@ import {
   SAVE_TODO,
   DELETE_TODO,
   CHANGE_TEXT
-} from './actionTypes'
+} from '../constants/actionTypes'
 
 export const createTodo = createAction('CREATE_TODO')
 export const editTodo = createAction('EDIT_TODO')

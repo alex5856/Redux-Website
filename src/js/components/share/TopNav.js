@@ -111,7 +111,6 @@ class TopNav extends Component {
       );
     }
 }
-// export default TopNav
 
 const TopNavStateToProps = (store) => ({
   login: store.getIn(['user','login'])
@@ -128,9 +127,7 @@ function TopNavStateToProps(store) {
 */
 
 const TopNavDispatchToProps = (dispatch) => ({
-
   onLogout: () => (e) => {
-    // e.preventDefault()
     dispatch(Logout())
   }
 })

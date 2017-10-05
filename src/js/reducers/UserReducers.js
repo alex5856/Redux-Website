@@ -1,10 +1,10 @@
 import { handleActions } from 'redux-actions'
-import { UserState } from '../store/models'
+import { UserState } from '../constants/models'
 
 import {
   CHECK_LOGIN,
   LOGOUT
-} from '../actions/actionTypes'
+} from '../constants/actionTypes'
 
 const userReducers = handleActions({
 
