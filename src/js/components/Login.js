@@ -88,8 +88,8 @@ const LoginDispatchToProps = (dispatch) => ({
   onLoginChk: () => (e) => {
     e.preventDefault()
 
-    // 讀取 test.json 資料
-    axios.get('../data.json')
+    // 讀取 data.json 資料
+    axios.get('data.json')
       .then(function (res) {
         // console.log(res);
         let data = res.data;

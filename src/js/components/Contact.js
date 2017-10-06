@@ -4,6 +4,7 @@ import Helmet from 'react-helmet'
 import Validation from 'react-validation'
 import validator from 'validator'
 import swal from 'sweetalert2'
+import axios from 'axios'
 
 class Contact extends Component{
 
@@ -23,27 +24,27 @@ class Contact extends Component{
     let email = el[2].value;
     let self = this;
 
-    // 讀取 test.json 資料
-    fetch("../test.json").then(function(res) {
-      if (res.ok) {
-        res.json().then(function(data) {
-          if(data.chk){
+    // 讀取 data.json 資料
+    axios.get('data.json')
+      .then(function (res) {
+        // console.log(res);
+        let data = res.data;
+        if(data.chk){
             swal(
               'Good job!',
               'complete',
-              'success'
-            )
+              'success')
           }
           else{
-            console.log(data.descr);
+            // console.log(data.descr);
+            swal('Oops!',
+                 'Something went wrong!',
+                 'error')
           }
-        });
-      } else {
-        console.log("Looks like the response wasn't perfect, got status", res.status);
-      }
-    }, function(e) {
-      console.log("Fetch failed!", e);
-    });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   render() {

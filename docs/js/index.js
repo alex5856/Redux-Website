@@ -41960,8 +41960,8 @@ var Contact = function (_Component) {
             var email = el[2].value;
             var self = this;
 
-            // 讀取 test.json 資料
-            fetch("../test.json").then(function (res) {
+            // 讀取 data.json 資料
+            fetch("../data.json").then(function (res) {
                 if (res.ok) {
                     res.json().then(function (data) {
                         if (data.chk) {
