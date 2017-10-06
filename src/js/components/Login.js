@@ -89,7 +89,9 @@ const LoginDispatchToProps = (dispatch) => ({
     e.preventDefault()
 
     // 讀取 data.json 資料
-    axios.get('data.json')
+    let jsUrl = 'https://alex5856.github.io/Redux-Website/data.json'
+
+    axios.get(jsUrl)
       .then(function (res) {
         // console.log(res);
         let data = res.data;
