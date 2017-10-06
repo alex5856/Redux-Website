@@ -81,13 +81,13 @@ gulp.task('js', function () {
     b.bundle()
     .pipe(source('index.js'))
     .pipe(buffer())
-    // .pipe(sourcemaps.init())
-    // .pipe(uglify())
+    .pipe(sourcemaps.init())
+    .pipe(uglify())
     .pipe(rename({ suffix: '.min' }))
-    // .pipe(sourcemaps.write('./', {
-    //                includeContent: false,
-    //                sourceRoot: '../js'
-    //              }))
+    .pipe(sourcemaps.write('./', {
+                   includeContent: false,
+                   sourceRoot: '../js'
+                 }))
     .pipe(gulp.dest(DIST_DIR))
     .pipe(connect.reload())
     .on('error', handleError);
