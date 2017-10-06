@@ -41925,6 +41925,10 @@ var _sweetalert = require('sweetalert2');
 
 var _sweetalert2 = _interopRequireDefault(_sweetalert);
 
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41961,20 +41965,17 @@ var Contact = function (_Component) {
             var self = this;
 
             // 讀取 data.json 資料
-            fetch("../data.json").then(function (res) {
-                if (res.ok) {
-                    res.json().then(function (data) {
-                        if (data.chk) {
-                            (0, _sweetalert2.default)('Good job!', 'complete', 'success');
-                        } else {
-                            console.log(data.descr);
-                        }
-                    });
+            _axios2.default.get('data.json').then(function (res) {
+                // console.log(res);
+                var data = res.data;
+                if (data.chk) {
+                    (0, _sweetalert2.default)('Good job!', 'complete', 'success');
                 } else {
-                    console.log("Looks like the response wasn't perfect, got status", res.status);
+                    // console.log(data.descr);
+                    (0, _sweetalert2.default)('Oops!', 'Something went wrong!', 'error');
                 }
-            }, function (e) {
-                console.log("Fetch failed!", e);
+            }).catch(function (error) {
+                console.log(error);
             });
         }
     }, {
@@ -42106,7 +42107,7 @@ var Contact = function (_Component) {
 
 exports.default = Contact;
 
-},{"react":336,"react-helmet":268,"react-validation":310,"sweetalert2":365,"validator":369}],444:[function(require,module,exports){
+},{"axios":1,"react":336,"react-helmet":268,"react-validation":310,"sweetalert2":365,"validator":369}],444:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42317,8 +42318,8 @@ var LoginDispatchToProps = function LoginDispatchToProps(dispatch) {
             return function (e) {
                 e.preventDefault();
 
-                // 讀取 test.json 資料
-                _axios2.default.get('../data.json').then(function (res) {
+                // 讀取 data.json 資料
+                _axios2.default.get('data.json').then(function (res) {
                     // console.log(res);
                     var data = res.data;
                     if (data.chk) {
@@ -42364,6 +42365,10 @@ var _sweetalert = require('sweetalert2');
 
 var _sweetalert2 = _interopRequireDefault(_sweetalert);
 
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
 var _reactValidation = require('react-validation');
 
 var _reactValidation2 = _interopRequireDefault(_reactValidation);
@@ -42408,22 +42413,18 @@ var Register = function (_Component) {
             var passwordConfirm = el[4].value;
             var self = this;
 
-            // 讀取 test.json 資料
-            fetch("../test.json").then(function (res) {
-                // res instanceof Response == true.
-                if (res.ok) {
-                    res.json().then(function (data) {
-                        if (data.chk) {
-                            (0, _sweetalert2.default)('Good job!', 'complete', 'success');
-                        } else {
-                            console.log(data.descr);
-                        }
-                    });
+            // 讀取 data.json 資料
+            _axios2.default.get('data.json').then(function (res) {
+                // console.log(res);
+                var data = res.data;
+                if (data.chk) {
+                    (0, _sweetalert2.default)('Good job!', 'complete', 'success');
                 } else {
-                    console.log("Looks like the response wasn't perfect, got status", res.status);
+                    // console.log(data.descr);
+                    (0, _sweetalert2.default)('Oops!', 'Something went wrong!', 'error');
                 }
-            }, function (e) {
-                console.log("Fetch failed!", e);
+            }).catch(function (error) {
+                console.log(error);
             });
         }
     }, {
@@ -42558,7 +42559,7 @@ var Register = function (_Component) {
 
 exports.default = Register;
 
-},{"react":336,"react-helmet":268,"react-router-dom":297,"react-validation":310,"sweetalert2":365,"validator":369}],447:[function(require,module,exports){
+},{"axios":1,"react":336,"react-helmet":268,"react-router-dom":297,"react-validation":310,"sweetalert2":365,"validator":369}],447:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
