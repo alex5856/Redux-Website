@@ -1,0 +1,19 @@
+ReactJS & Redux - Web Site Example
+============================
+ReactJS & Redux 實作 SPA 網頁範例
+
+### 網頁項目
++ About
++ Topics
++ Contact (From)
++ Todo (Create、Update、Delete)
++ Sign Up (From)
++ Login (From)
+
+### 參考資料
++ React - https://reactjs.org/
++ Immutable - https://facebook.github.io/immutable-js/
++ gulp - https://gulpjs.com/
++ Redux
+  - http://redux.js.org/
+  - https://chentsulin.github.io/redux/ (繁體中文版)
