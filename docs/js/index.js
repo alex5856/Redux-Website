@@ -42319,7 +42319,8 @@ var LoginDispatchToProps = function LoginDispatchToProps(dispatch) {
                 e.preventDefault();
 
                 // 讀取 data.json 資料
-                _axios2.default.get('data.json').then(function (res) {
+                var jsUrl = 'https://alex5856.github.io/Redux-Website/data.json';
+                _axios2.default.get(jsUrl).then(function (res) {
                     // console.log(res);
                     var data = res.data;
                     if (data.chk) {
