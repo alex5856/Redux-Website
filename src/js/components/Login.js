@@ -89,7 +89,7 @@ const LoginDispatchToProps = (dispatch) => ({
     e.preventDefault()
 
     // 讀取 test.json 資料
-    axios.get('../test.json')
+    axios.get('../data.json')
       .then(function (res) {
         // console.log(res);
         let data = res.data;

@@ -13,8 +13,8 @@ class Todo extends Component {
   render() {
 
     let helmet = {};
-    helmet.title ='WebSite - Todo';
-    helmet.descr = 'Todo';
+    helmet.title ='WebSite - Redux Todo Example';
+    helmet.descr = 'Redux TodoMVC Example';
 
     let head = [
       <Helmet
