@@ -5,10 +5,10 @@ ReactJS & Redux 實作 SPA 網頁範例
 ### 網頁項目
 + About
 + Topics
-+ Contact (From)
++ Contact (Form)
 + Todo (Create、Update、Delete)
-+ Sign Up (From)
-+ Login (From)
++ Sign Up (Form)
++ Login (Form)
 
 ### 參考資料
 + React - https://reactjs.org/
