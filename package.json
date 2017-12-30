@@ -1,7 +1,7 @@
 {
-  "name": "redux test",
+  "name": "redux-website",
   "version": "1.0.0",
-  "description": "redux test",
+  "description": "redux-website",
   "main": "gulpfile.js",
   "dependencies": {
     "react": "^15.6.1",
@@ -9,12 +9,16 @@
   },
   "devDependencies": {
     "axios": "^0.16.2",
+    "babel-jest": "^21.2.0",
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-react": "^6.23.0",
     "babelify": "^7.3.0",
     "browserify": "^14.1.0",
     "classnames": "^2.2.5",
     "del": "^2.2.0",
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-15": "^1.0.1",
+    "enzyme-redux": "^0.1.7",
     "es6-object-assign": "^1.1.0",
     "gulp": "^3.9.1",
     "gulp-cache": "^0.4.1",
@@ -23,6 +27,8 @@
     "gulp-connect": "^2.3.1",
     "gulp-htmlmin": "^1.3.0",
     "gulp-imagemin": "^2.4.0",
+    "gulp-jest": "^2.0.0",
+    "gulp-jest-cli": "0.0.3",
     "gulp-jsonminify": "^1.0.0",
     "gulp-minify": "0.0.5",
     "gulp-minify-css": "^1.2.3",
@@ -31,24 +37,29 @@
     "gulp-uglify": "^1.5.1",
     "gulp-util": "^3.0.7",
     "immutable": "^3.8.1",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
+    "jest": "^21.2.1",
+    "jest-cli": "^21.2.1",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
     "react-helmet": "^5.2.0",
     "react-redux": "^5.0.6",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
+    "react-test-renderer": "^15.6.2",
     "react-validation": "^2.10.9",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
     "redux-immutable": "^4.0.0",
     "redux-logger": "^3.0.6",
+    "redux-test-utils": "^0.1.3",
+    "sinon": "^4.0.1",
     "sweetalert2": "^6.6.9",
     "validator": "^8.1.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [
     "reactjs",
@@ -60,5 +71,9 @@
     "gulp"
   ],
   "author": "Alex Chen",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alex5856/Redux-Website.git"
+  },
   "license": "ISC"
 }
